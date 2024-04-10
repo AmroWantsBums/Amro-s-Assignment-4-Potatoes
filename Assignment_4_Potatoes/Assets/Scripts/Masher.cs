@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Masher : MonoBehaviour
 {
-    private float Speed = 4f;
+    private float Speed = 14f;
     public bool Mashing = false;
     private Vector2 ResetPosition;
     // Start is called before the first frame update
@@ -34,6 +34,12 @@ public class Masher : MonoBehaviour
     {
         if (col.gameObject.name == "Plane")
         {
+            Mashing = false;
+        }
+
+        if (col.gameObject.CompareTag("Potato"))
+        {
+            Destroy(col.gameObject);
             Mashing = false;
         }
     }
