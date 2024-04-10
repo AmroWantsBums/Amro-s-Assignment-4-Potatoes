@@ -4,10 +4,13 @@ using UnityEngine;
 
 public class Masher : MonoBehaviour
 {
+    private float Speed = 4f;
+    public bool Mashing = false;
+    private Vector2 ResetPosition;
     // Start is called before the first frame update
     void Start()
     {
-        
+        ResetPosition = transform.position;
     }
 
     // Update is called once per frame
@@ -15,19 +18,23 @@ public class Masher : MonoBehaviour
     {
         if (Input.GetKeyDown("space"))
         {
-            Mash();
+            Mashing = true;
+        }
+        if (Mashing)
+        {
+            transform.Translate(new Vector2(0, -4) * Speed * Time.deltaTime);
+        }
+        if (!Mashing)
+        {
+            transform.position = Vector2.MoveTowards(transform.position, ResetPosition, Speed * Time.deltaTime);
         }
     }
 
-    void Mash()
+    void OnCollisionEnter2D(Collision2D col)
     {
-        transform.position = new Vector2(0, -4);
-        StartCoroutine(Reset());
-    }
-
-    IEnumerator Reset()
-    {
-        yield return new WaitForSeconds(1f);
-        transform.Translate(Vector2.up * Time.deltaTime);
+        if (col.gameObject.name == "Plane")
+        {
+            Mashing = false;
+        }
     }
 }
