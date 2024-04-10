@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Masher : MonoBehaviour
 {
@@ -42,5 +43,17 @@ public class Masher : MonoBehaviour
             Destroy(col.gameObject);
             Mashing = false;
         }
+
+        if (col.gameObject.CompareTag("Bomb"))
+        {
+            StartCoroutine(RestartGame());
+        }
+    }
+
+    IEnumerator RestartGame()
+    {
+        SceneManager.LoadScene("SampleScene");
+        Time.timeScale = 1;
+        yield return null;
     }
 }

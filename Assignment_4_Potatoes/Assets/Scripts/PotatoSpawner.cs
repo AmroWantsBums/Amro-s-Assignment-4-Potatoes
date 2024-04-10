@@ -23,7 +23,6 @@ public class PotatoSpawner : MonoBehaviour
     void RandomNumber()
     {
         int RandomNo = Random.Range(0,5);
-        Debug.Log(RandomNo);
         if (RandomNo == 4)
         {
             StartCoroutine(SpawnBomb());
