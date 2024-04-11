@@ -13,6 +13,10 @@ public class GameController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Time.timeScale = Time.timeScale + 0.000001f;
+        if (Input.GetKeyDown("a"))
+        {
+            Debug.Log(Time.timeScale);
+        }
+        Time.timeScale = Time.timeScale + 0.00001f;
     }
 }
