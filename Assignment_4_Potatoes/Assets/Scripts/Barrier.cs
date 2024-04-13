@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class Barrier : MonoBehaviour
 {
+    private Masher masher;
     // Start is called before the first frame update
     void Start()
     {
-        
+        masher = GameObject.Find("Masher").GetComponent<Masher>();
     }
 
     // Update is called once per frame
@@ -25,6 +26,7 @@ public class Barrier : MonoBehaviour
         if (col.gameObject.CompareTag("Potato"))
         {
             Destroy(col.gameObject);
+            masher.Lives--;
         }
     }
 }

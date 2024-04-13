@@ -6,8 +6,10 @@ using UnityEngine.SceneManagement;
 public class Masher : MonoBehaviour
 {
     private float Speed = 14f;
-    public bool Mashing = false;
+    private bool Mashing = false;
     private Vector2 ResetPosition;
+    public int Lives = 3;
+    public GameObject[] HealthSprites;
     // Start is called before the first frame update
     void Start()
     {
@@ -29,6 +31,14 @@ public class Masher : MonoBehaviour
         {
             transform.position = Vector2.MoveTowards(transform.position, ResetPosition, Speed * Time.deltaTime);
         }
+        if (Lives == 2)
+        {
+            Destroy(HealthSprites[2]);
+        }
+        if (Lives == 1)
+        {
+            Destroy(HealthSprites[1]);
+        }
     }
 
     void OnCollisionEnter2D(Collision2D col)
@@ -46,7 +56,7 @@ public class Masher : MonoBehaviour
 
         if (col.gameObject.CompareTag("Bomb"))
         {
-            StartCoroutine(RestartGame());
+            Lives--;
         }
     }
 
