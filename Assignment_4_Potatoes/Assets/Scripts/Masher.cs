@@ -17,6 +17,7 @@ public class Masher : MonoBehaviour
     public GameObject DeathCanvas;
     public bool GameOver = false;
     public TextMeshProUGUI FinalScore;
+    public AudioSource BgAudio;
 
     // Start is called before the first frame update
     void Start()
@@ -81,7 +82,7 @@ public class Masher : MonoBehaviour
 
     IEnumerator DeathLoad()
     {
-        Debug.Log("This Code is running");
+        BgAudio.Stop();
         float startTime = Time.realtimeSinceStartup;
         while (Time.realtimeSinceStartup - startTime < 2.5f)
         {
