@@ -17,6 +17,6 @@ public class GameController : MonoBehaviour
         {
             Debug.Log(Time.timeScale);
         }
-        Time.timeScale = Time.timeScale + 0.00002f;
+        Time.timeScale = Time.timeScale + 0.00005f;
     }
 }

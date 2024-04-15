@@ -13,6 +13,7 @@ public class PotatoSpawner : MonoBehaviour
     public bool GameStarted = false;
     private float Interval;
     public GameObject TextObject;
+    public AudioSource BackgroundAudio;
     // Start is called before the first frame update
     void Start()
     {
@@ -38,6 +39,7 @@ public class PotatoSpawner : MonoBehaviour
                 {
                     GameStarted = true;
                     RandomNumber();
+                    BackgroundAudio.Play();
                     TextObject.SetActive(false);
                 }
             }
