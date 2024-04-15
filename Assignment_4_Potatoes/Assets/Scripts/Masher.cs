@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class Masher : MonoBehaviour
 {
@@ -12,6 +13,11 @@ public class Masher : MonoBehaviour
     public GameObject[] HealthSprites;
     public AudioSource SquishSource;
     public PotatoSpawner potatoSpawner;
+    public Score score;
+    public GameObject DeathCanvas;
+    public bool GameOver = false;
+    public TextMeshProUGUI FinalScore;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -62,18 +68,32 @@ public class Masher : MonoBehaviour
             Destroy(col.gameObject);
             SquishSource.Play();
             Mashing = false;
+            score.CurrentScore = score.CurrentScore + 10;
         }
 
         if (col.gameObject.CompareTag("Bomb"))
         {
-            Lives--;
+            GameOver = true;
+            Time.timeScale = 0;
+            StartCoroutine(DeathLoad());
         }
     }
 
-    IEnumerator RestartGame()
+    IEnumerator DeathLoad()
+    {
+        Debug.Log("This Code is running");
+        float startTime = Time.realtimeSinceStartup;
+        while (Time.realtimeSinceStartup - startTime < 2.5f)
+        {
+            yield return null;
+        }
+        DeathCanvas.SetActive(true);
+        FinalScore.text = $"{score.CurrentScore}";
+    }
+
+    public void RestartGame()
     {
         SceneManager.LoadScene("SampleScene");
         Time.timeScale = 1;
-        yield return null;
     }
 }
