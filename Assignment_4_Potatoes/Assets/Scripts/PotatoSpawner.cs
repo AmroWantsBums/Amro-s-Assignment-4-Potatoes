@@ -10,31 +10,35 @@ public class PotatoSpawner : MonoBehaviour
     private Transform SpawnLocation;
     public TextMeshProUGUI CountdownText;
     private int Seconds = 3;
+    public bool GameStarted = false;
+    private float Interval;
+    public GameObject TextObject;
     // Start is called before the first frame update
     void Start()
     {
         SpawnLocation = GameObject.Find("SpawnLocation").GetComponent<Transform>();
+        //RandomNumber();
     }
 
     // Update is called once per frame
     void Update()
     {
-        bool GameStarted = false;
         if (!GameStarted)
         {
-            float interval = 0;
-            if (interval < 1)
+            if (Interval < 1)
             {
-                interval = interval + Time.deltaTime;
+                Interval = Interval + Time.deltaTime;
             }
             else
             {
                 Seconds--;
+                Interval = 0;
+                CountdownText.text = $"{Seconds}";
                 if (Seconds == 0)
                 {
                     GameStarted = true;
-                    CountdownText.text = $"{Seconds}";
                     RandomNumber();
+                    TextObject.SetActive(false);
                 }
             }
         }

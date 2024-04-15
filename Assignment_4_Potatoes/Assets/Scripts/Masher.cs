@@ -10,6 +10,8 @@ public class Masher : MonoBehaviour
     private Vector2 ResetPosition;
     public int Lives = 3;
     public GameObject[] HealthSprites;
+    public AudioSource SquishSource;
+    public PotatoSpawner potatoSpawner;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,26 +21,33 @@ public class Masher : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown("space"))
+        if (potatoSpawner.GameStarted)
         {
-            Mashing = true;
-        }
-        if (Mashing)
-        {
-            transform.Translate(new Vector2(0, -4) * Speed * Time.deltaTime);
-        }
-        if (!Mashing)
-        {
-            transform.position = Vector2.MoveTowards(transform.position, ResetPosition, Speed * Time.deltaTime);
-        }
-        if (Lives == 2)
-        {
-            Destroy(HealthSprites[2]);
-        }
-        if (Lives == 1)
-        {
-            Destroy(HealthSprites[1]);
-        }
+            if (Input.GetKeyDown("space"))
+            {
+                Mashing = true;
+            }
+            if (Mashing)
+            {
+                transform.Translate(new Vector2(0, -4) * Speed * Time.deltaTime);
+            }
+            if (!Mashing)
+            {
+                float distance = Vector2.Distance(transform.position, ResetPosition);
+                if (distance > 0.1f)
+                {
+                    transform.position = Vector2.MoveTowards(transform.position, ResetPosition, Speed * Time.deltaTime);
+                }
+            }
+            if (Lives == 2)
+            {
+                Destroy(HealthSprites[2]);
+            }
+            if (Lives == 1)
+            {
+                Destroy(HealthSprites[1]);
+            }
+        }        
     }
 
     void OnCollisionEnter2D(Collision2D col)
@@ -51,6 +60,7 @@ public class Masher : MonoBehaviour
         if (col.gameObject.CompareTag("Potato"))
         {
             Destroy(col.gameObject);
+            SquishSource.Play();
             Mashing = false;
         }
 
