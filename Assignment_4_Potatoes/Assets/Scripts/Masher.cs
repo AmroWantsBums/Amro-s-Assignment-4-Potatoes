@@ -18,6 +18,7 @@ public class Masher : MonoBehaviour
     public bool GameOver = false;
     public TextMeshProUGUI FinalScore;
     public AudioSource BgAudio;
+    public AudioSource BombAudio;
 
     // Start is called before the first frame update
     void Start()
@@ -75,6 +76,7 @@ public class Masher : MonoBehaviour
         if (col.gameObject.CompareTag("Bomb"))
         {
             GameOver = true;
+            BombAudio.Play();
             Time.timeScale = 0;
             StartCoroutine(DeathLoad());
         }
