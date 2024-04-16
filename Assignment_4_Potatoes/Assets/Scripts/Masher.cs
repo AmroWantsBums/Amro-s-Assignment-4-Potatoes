@@ -55,6 +55,11 @@ public class Masher : MonoBehaviour
             {
                 Destroy(HealthSprites[1]);
             }
+            if (Lives == 0)
+            {
+                Time.timeScale = 0;
+                StartCoroutine(DeathLoad());
+            }
         }        
     }
 
