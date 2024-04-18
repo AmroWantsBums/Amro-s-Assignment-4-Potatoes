@@ -27,17 +27,21 @@ public class Barrier : MonoBehaviour
         {
             Destroy(col.gameObject);
             masher.Lives--;
+            if (masher.Lives == 0)
+            {
+                masher.FailAudio.Play();
+            }
         }
 
-        if (col.gameObject.CompareTag("Potato") && masher.Lives == 0)
+        /*if (col.gameObject.CompareTag("Potato") && masher.Lives == 0)
         {
             StartCoroutine(FailSound());
-        }           
+        } */          
     }
 
-    IEnumerator FailSound()
+    /*IEnumerator FailSound()
     {
         yield return new WaitForSeconds(1f);
         masher.FailAudio.Play();
-    }
+    }*/
 }
