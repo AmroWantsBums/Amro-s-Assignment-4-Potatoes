@@ -9,7 +9,7 @@ public class Masher : MonoBehaviour
     private float Speed = 14f;
     private bool Mashing = false;
     private Vector2 ResetPosition;
-    public int Lives = 3;
+    public int Lives;
     public GameObject[] HealthSprites;
     public AudioSource SquishSource;
     public PotatoSpawner potatoSpawner;
@@ -19,10 +19,13 @@ public class Masher : MonoBehaviour
     public TextMeshProUGUI FinalScore;
     public AudioSource BgAudio;
     public AudioSource BombAudio;
+    public AudioSource FailAudio;
 
     // Start is called before the first frame update
     void Start()
     {
+        Time.timeScale = 1;
+        Lives = 3;
         ResetPosition = transform.position;
     }
 
@@ -57,6 +60,7 @@ public class Masher : MonoBehaviour
             }
             if (Lives == 0)
             {
+                Destroy(HealthSprites[0]);
                 Time.timeScale = 0;
                 StartCoroutine(DeathLoad());
             }
@@ -101,7 +105,7 @@ public class Masher : MonoBehaviour
 
     public void RestartGame()
     {
-        SceneManager.LoadScene("SampleScene");
         Time.timeScale = 1;
+        SceneManager.LoadScene("MainPage");
     }
 }
